@@ -23,7 +23,7 @@ const Blog = () => {
           <p>
             Ryde understands that comfort and enjoyment are important while
             travelling. Therefore, we have collaborated with some of the finest
-            travel agencies in India to render a perfect trip to our customers.
+            travel agencies in Nepal and Bangladesh to render a perfect trip to our customers.
             The passengers can opt for air conditioned or non-air conditioned
             buses. The buses also have push back and recliner seats making it
             possible for the elderly to travel. Buses are also equipped with LCD
@@ -45,15 +45,12 @@ const Blog = () => {
             so that you do not get feel suffocated. It is relatively
             cost-effective to rent a bus from Ryde All the buses we onboard are
             verified. Ryde checks the quality of each vehicle onboard before
-            sending them to customers. You can pay only 25% to make a booking
-            and pay the balance at the time of boarding the vehicle Vehicle can
-            be tracked via GPS. Drivers have an app which allows high quality
-            tracking. Customer support is provided to make a booking as well as
-            during your journey. Our support centers are open 24/7 and 365 days
+            sending them to customers. Drivers have an app which allows high quality
+            tracking. Our support centers are open 24/7 and 365 days
             a year.
           </p>
           <p>
-            Ryde works closely with the best bus service providers in the
+            MyJourney.ltd works closely with the best bus service providers in the
             country. All you need to do is to answer a few simple questions
             about your trip. Once you fill up the form, you get detailed
             quotations from some of the best bus operators of your city of
@@ -75,7 +72,7 @@ const Blog = () => {
             with air-conditioned as well as non-air-conditioned buses to choose
             from and book. It also provides sleeper buses that operate at night.
             Ryde and Ryde bus rental can be done either through the use of the
-            official website or the easy to download Ryde application.
+            official website or the easy to download MyJourney.ltd application.
           </p>
           <p>
             Ryde has been making sure to take care of all its customer’s health

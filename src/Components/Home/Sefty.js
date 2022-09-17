@@ -16,7 +16,7 @@ const Sefty = () => {
             <div className="safety-text">
               <h2>Safety+</h2>
               <p className='opt-travel'>
-                Opt to Travel Safe with Travel.com <a href="#">KNOW MORE</a>
+                Opt to Travel Safe with MyJourney.ltd <a href="#">KNOW MORE</a>
               </p>
               
             </div>

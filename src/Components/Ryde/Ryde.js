@@ -20,34 +20,34 @@ const Ryde = () => {
           </h1>
           <div className="select-trip mt-4">
             <p className='m-0'>SELECT TRIP TYPE</p>
-            <div class="row row-cols-1 row-cols-md-3 g-4">
-              <div class="col">
-                <div class="trip-card">
+            <div className="row row-cols-1 row-cols-md-3 g-4">
+              <div className="col">
+                <div className="trip-card">
                   <div className="d-flex justify-content-center pt-3">
-                    <img src={airport} class="card-img-top" alt="..." />
+                    <img src={airport} className="card-img-top" alt="..." />
                   </div>
-                  <div class="card-body">
-                    <h5 class="card-title">SUPERIOR CUSTOMER SERVICE</h5>
+                  <div className="card-body">
+                    <h5 className="card-title">SUPERIOR CUSTOMER SERVICE</h5>
                   </div>
                 </div>
               </div>
-              <div class="col">
-                <div class="trip-card">
+              <div className="col">
+                <div className="trip-card">
                   <div className="d-flex justify-content-center pt-3">
-                    <img src={outstation} class="card-img-top" alt="..." />
+                    <img src={outstation} className="card-img-top" alt="..." />
                   </div>
-                  <div class="card-body">
-                    <h5 class="card-title">LOWEST PRICES</h5>
+                  <div className="card-body">
+                    <h5 className="card-title">LOWEST PRICES</h5>
                   </div>
                 </div>
               </div>
-              <div class="col">
-                <div class="trip-card">
+              <div className="col">
+                <div className="trip-card">
                   <div className="d-flex justify-content-center pt-3">
-                    <img src={rant} class="card-img-top" alt="..." />
+                    <img src={rant} className="card-img-top" alt="..." />
                   </div>
-                  <div class="card-body">
-                    <h5 class="card-title">UNMATCHED BENEFITS</h5>
+                  <div className="card-body">
+                    <h5 className="card-title">UNMATCHED BENEFITS</h5>
                   </div>
                 </div>
               </div>

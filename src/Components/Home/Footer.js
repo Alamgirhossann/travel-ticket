@@ -1,9 +1,8 @@
 import React from "react";
-import facebook from "../../images/social-facebook.png";
-import twitter from "../../images/social-twitter.png";
-import instagram from "../../images/social-instagram.png";
-import Logo from "../../images/final-logo.png";
-import linkedin from "../../images/social-linkedin.png";
+import facebook from "../../images/Social Icons (5).png";
+import twitter from "../../images/Social Icons (6).png";
+import Logo from "../../images/logo-f.png";
+import linkedin from "../../images/Social Icons (7).png";
 import googlePlay from "../../images/google-play.png";
 import appleStore from "../../images/app-store.png";
 import "../../scss/home/footer.scss";
@@ -18,9 +17,9 @@ const Footer = () => {
               <img src={Logo} alt="" />
             </figure>
             <p>
-              redBus is the world's largest online bus ticket booking service
-              trusted by over 25 million happy customers globally. redBus offers
-              bus ticket booking through its website,iOS and Android mobile apps
+              MyJourney.ltd is the Nepal and Bangladesh online booking service
+              trusted by over 2 thousand happy customers. MyJourney.ltd offers
+              booking through its website,iOS and Android mobile apps
               for all major routes.
             </p>
             <div className="footer-icon">
@@ -33,19 +32,13 @@ const Footer = () => {
               <a href="#">
                 <img src={linkedin} alt="" />
               </a>
-              <a href="#">
-                <img src={instagram} alt="" />
-              </a>
             </div>
           </div>
           <div className="col-lg-2">
-            <p className='fw-bold pb-2'>About Travel.com</p>
+            <p className='fw-bold pb-2'>About MyJourney.ltd</p>
             <p>About Us</p>
             <p>Contact Us</p>
-            <p>Travel.com on Mobile</p>
-            <p>Sitemap</p>
-            <p>Offers</p>
-            <p>Value</p>
+            <p>MyJourney.ltd on Mobile</p>
           </div>
           <div className="col-lg-2">
             <p className='fw-bold pb-2'>Info </p>
@@ -53,20 +46,21 @@ const Footer = () => {
             <p>FAQ</p>
             <p>Blog</p>
             <p>Bus Operator Ragistration</p>
-            <p>Agent Registration</p>
-            <p>User Agreement</p>
           </div>
           <div className="col-lg-2">
             <p className='fw-bold pb-2'>Global Sites </p>
             <p>Nepal</p>
             <p>Bangladesh</p>
-            <p>India</p>
           </div>
           <div className="col-lg-2">
             <p className='fw-bold pb-2'>Our Partners </p>
             <p>Annapurna</p>
             <p>Star Transport Service pvt ltd</p>
             <p>Vehicle Consult pvt. Ltd</p>
+            <p>Nabil Paribahon</p>
+            <p>Green Line</p>
+            <p>Shamoly</p>
+            <p>Hanig Enterprice</p>
           </div>
         </div>
         <div className="app-store">
@@ -77,7 +71,7 @@ const Footer = () => {
             <img src={appleStore} alt="" />
           </figure>
         </div>
-        <p className="text-center">Ⓒ 2021 ibibogroup All rights reserved</p>
+        <p className="text-center">Ⓒ 2022 MyJourney.ltd All rights reserved</p>
       </div>
     </div>
   );

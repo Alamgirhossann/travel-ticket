@@ -7,27 +7,27 @@ const Cancel = () => {
       <div className="container">
         <h3 className="text-center">Cancel your Ticket</h3>
         <div className="cancel-form-control">
-          <form class="row g-3 text-center">
-            <div class="col-md-5">
+          <form className="row g-3 text-center">
+            <div className="col-md-5">
               <input
                 type="text"
-                class="form-control"
+                className="form-control"
                 id="validationDefault01"
                 placeholder="Enter Your Ticket No"
                 required
               />
             </div>
-            <div class="col-md-5">
+            <div className="col-md-5">
               <input
                 type="text"
-                class="form-control"
+                className="form-control"
                 id="validationDefault02"
                 placeholder="Enter Your Email"
                 required
               />
             </div>
-            <div class="col-md-2">
-              <button class="btn cancel-btn" type="submit">
+            <div className="col-md-2">
+              <button className="btn cancel-btn" type="submit">
                 Submit form
               </button>
             </div>

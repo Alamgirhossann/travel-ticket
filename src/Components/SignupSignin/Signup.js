@@ -1,89 +1,103 @@
-import React from "react";
 import "../../scss/signinSignup/signup.scss";
 import google from "../../images/Google.png";
 import facebook from "../../images/social-facebook.png";
+import { auth, db } from "../../App";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  const [fName, setFName] = useState("");
+  const [lName, setLName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  let Navigate = useNavigate();
+
+  const submit = async (e) => {
+    e.preventDefault()
+    auth.createUserWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+     if (userCredential) {
+  
+      db.ref('PersonDetail').push().update({
+        sold:true,
+        firstName: fName,
+        lastName: lName,
+        email: email,
+        uid:  userCredential.user.uid
+      });
+      Navigate('/home')
+     }
+    })
+    .catch((error) => {
+      const  errorCode = error.code;
+      const  errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+      // ..
+    });
+  };
+
+
   return (
     <div className="signup-section">
       <div className="container">
         <h3 className="text-center">SIGN UP FOR ACCESS YOUR BOOKING</h3>
         <div className="form-control-section">
-          <form class="row g-3">
-            <div class="col-md-6">
-              <label for="validationDefault01" class="form-label">
+          <form className="row g-3">
+            <div className="col-md-6">
+              <label htmlFor="validationDefault01" className="form-label">
                 First name
               </label>
               <input
                 type="text"
-                class="form-control"
+                className="form-control"
                 id="validationDefault01"
                 placeholder="First name"
                 required
+                onChange={(e) => setFName(e.target.value)}
               />
             </div>
-            <div class="col-md-6">
-              <label for="validationDefault02" class="form-label">
+            <div className="col-md-6">
+              <label htmlFor="validationDefault02" className="form-label">
                 Last name
               </label>
               <input
                 type="text"
-                class="form-control"
+                className="form-control"
                 id="validationDefault02"
                 placeholder="Last name"
                 required
+                onChange={(e) => setLName(e.target.value)}
               />
             </div>
-            <div class="col-md-6">
-              <label for="validationDefaultUsername" class="form-label">
-                Username
-              </label>
-              <input
-                type="text"
-                class="form-control"
-                id="validationDefaultUsername"
-                placeholder="Username"
-                required
-              />
-            </div>
-            <div class="col-md-6">
-              <label for="validationDefault03" class="form-label">
+            <div className="col-md-6">
+              <label htmlFor="validationDefault03" className="form-label">
                 Email
               </label>
               <input
                 type="text"
-                class="form-control"
+                className="form-control"
                 id="validationDefault03"
                 placeholder="Email"
                 required
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            <div class="col-md-6">
-              <label for="validationDefault04" class="form-label">
+            <div className="col-md-6">
+              <label htmlFor="validationDefault04" className="form-label">
                 Password
               </label>
               <input
-                type="text"
-                class="form-control"
+                type="password"
+                className="form-control"
                 id="validationDefault05"
                 placeholder="Password"
                 required
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <div class="col-md-6">
-              <label for="validationDefault05" class="form-label">
-                Confirm Password
-              </label>
-              <input
-                type="text"
-                class="form-control"
-                id="validationDefault05"
-                placeholder="Confirm Password"
-                required
-              />
-            </div>
-            <div class="col-12">
-              <button class="btn signup-btn" type="submit">
+
+            <div className="col-12">
+              <button onClick={submit} className="btn signup-btn" type="submit">
                 Sign Up
               </button>
             </div>
@@ -91,20 +105,20 @@ const Signup = () => {
         </div>
         <div className="social-media-sign">
           <div className="row">
-            <div class="col-md-6">
+            <div className="col-md-6">
               <div className="common-signin-btn">
                 <img src={google} alt="" />
                 <button type="submit">Sign Up with Google</button>
               </div>
             </div>
-            <div class="col-md-6">
+            <div className="col-md-6">
               <div className="common-signin-btn">
                 <img src={facebook} alt="" />
                 <button type="submit">Sign Up with Facebook</button>
               </div>
             </div>
             <p>
-              Do you have an account? <a href="/signin">Sign In</a>
+              Do you have an account? <Link to="/signin">Sign In</Link>
             </p>
           </div>
         </div>

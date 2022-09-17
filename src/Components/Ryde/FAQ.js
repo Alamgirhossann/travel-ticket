@@ -6,11 +6,11 @@ const FAQ = () => {
       <div className="container">
         <h3>FAQs</h3>
         <div className="">
-          <div class="accordion" id="accordionExample">
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingOne">
+          <div className="accordion" id="accordionExample">
+            <div className="accordion-item">
+              <h2 className="accordion-header" id="headingOne">
                 <button
-                  class="accordion-button"
+                className="accordion-button"
                   type="button"
                   data-bs-toggle="collapse"
                   data-bs-target="#collapseOne"
@@ -22,20 +22,20 @@ const FAQ = () => {
               </h2>
               <div
                 id="collapseOne"
-                class="accordion-collapse collapse"
+                className="accordion-collapse collapse"
                 aria-labelledby="headingOne"
                 data-bs-parent="#accordionExample"
               >
-                <div class="accordion-body">
+                <div className="accordion-body">
                   Ryde helps you rent a vehicle from the best operators in your
                   city.
                 </div>
               </div>
             </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingTwo">
+            <div className="accordion-item">
+              <h2 className="accordion-header" id="headingTwo">
                 <button
-                  class="accordion-button collapsed"
+                className="accordion-button collapsed"
                   type="button"
                   data-bs-toggle="collapse"
                   data-bs-target="#collapseTwo"
@@ -47,21 +47,21 @@ const FAQ = () => {
               </h2>
               <div
                 id="collapseTwo"
-                class="accordion-collapse collapse"
+                className="accordion-collapse collapse"
                 aria-labelledby="headingTwo"
                 data-bs-parent="#accordionExample"
               >
-                <div class="accordion-body">
+                <div className="accordion-body">
                   We ask you a few simple questions regarding your trip. We work
                   with the best operators in your city to get you detailed
                   quotations so that you get the best deal.
                 </div>
               </div>
             </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingThree">
+            <div className="accordion-item">
+              <h2 className="accordion-header" id="headingThree">
                 <button
-                  class="accordion-button collapsed"
+                className="accordion-button collapsed"
                   type="button"
                   data-bs-toggle="collapse"
                   data-bs-target="#collapseThree"
@@ -73,23 +73,21 @@ const FAQ = () => {
               </h2>
               <div
                 id="collapseThree"
-                class="accordion-collapse collapse"
+                className="accordion-collapse collapse"
                 aria-labelledby="headingThree"
                 data-bs-parent="#accordionExample"
               >
-                <div class="accordion-body">
-                  We are currently operational in many cities such as Bangalore,
-                  Mumbai, Pune, Chennai, Hyderabad, Delhi, Ahmedabad, Madurai,
-                  Mysore, Visakhapatnam, Surat, Vadodara, Vijayawada,
-                  Coimbatore, Goa, Pondicherry, Erode, Ooty, Udaipur, Jaipur,
-                  Guwahati, Trichy, Kolkata, and many more.
+                <div className="accordion-body">
+                  We are currently operational in many cities such as Dinajpur,
+                  Sylhet, Coxbazar, Chottogram, Dhaka, Khylna, pokhara,
+                  Kathmandu, Biratnagar, Kakarbitha and many more.
                 </div>
               </div>
             </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingFour">
+            <div className="accordion-item">
+              <h2 className="accordion-header" id="headingFour">
                 <button
-                  class="accordion-button collapsed"
+                className="accordion-button collapsed"
                   type="button"
                   data-bs-toggle="collapse"
                   data-bs-target="#collapseFour"
@@ -101,22 +99,22 @@ const FAQ = () => {
               </h2>
               <div
                 id="collapseFour"
-                class="accordion-collapse collapse"
+                className="accordion-collapse collapse"
                 aria-labelledby="headingFour"
                 data-bs-parent="#accordionExample"
               >
-                <div class="accordion-body">
-                  You can write to us at ryde@redbus.in. Alternatively, you can
-                  request a call back by clicking on the 'Request a Callback'
-                  button on any of the quotes you've received. One of our
-                  customer service executives will reach out to you.
+                <div className="accordion-body">
+                  You can write to us at Social media platform. Alternatively,
+                  you can request a call back by clicking on the 'Request a
+                  Callback' button on any of the quotes you've received. One of
+                  our customer service executives will reach out to you.
                 </div>
               </div>
             </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingFive">
+            <div className="accordion-item">
+              <h2 className="accordion-header" id="headingFive">
                 <button
-                  class="accordion-button collapsed"
+                className="accordion-button collapsed"
                   type="button"
                   data-bs-toggle="collapse"
                   data-bs-target="#collapseFive"
@@ -128,23 +126,20 @@ const FAQ = () => {
               </h2>
               <div
                 id="collapseFive"
-                class="accordion-collapse collapse"
+                className="accordion-collapse collapse"
                 aria-labelledby="headingFive"
                 data-bs-parent="#accordionExample"
               >
-                <div class="accordion-body">
-                  You can confirm your reservation by paying a small booking
-                  fee, typically up to to 25% of the base fare. The balance can
-                  be paid directly to us through online modes till two days
-                  before the start of the journey or to the operator in cash at
-                  the time of boarding.
+                <div className="accordion-body">
+                  You can confirm your reservation by paying booking fee. The
+                  balance can be paid directly to us through online payment service.
                 </div>
               </div>
             </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingSix">
+            <div className="accordion-item">
+              <h2 className="accordion-header" id="headingSix">
                 <button
-                  class="accordion-button collapsed"
+                className="accordion-button collapsed"
                   type="button"
                   data-bs-toggle="collapse"
                   data-bs-target="#collapseSix"
@@ -156,11 +151,11 @@ const FAQ = () => {
               </h2>
               <div
                 id="collapseSix"
-                class="accordion-collapse collapse"
+                className="accordion-collapse collapse"
                 aria-labelledby="headingSix"
                 data-bs-parent="#accordionExample"
               >
-                <div class="accordion-body">
+                <div className="accordion-body">
                   The cancellation policy is specific to each operator and is
                   listed against the quotes on the quotations page.
                 </div>

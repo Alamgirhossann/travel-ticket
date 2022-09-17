@@ -1,0 +1,14 @@
+/* @import "./scss/_var.scss";
+.GlobalBackgroundColors
+{
+    $primaryColor:"#5641B6", // Blue Color for background
+    secondaryColor:"#FB8549", // Orange color for buttons and inner links
+    ternaryColor:"#FFFFFF", // White Color
+}
+.GlobalBackgroundTextColors
+{
+    primaryColor:"#FFFFFF", // White color (used over blue one)
+    secondaryColor:"#FFFFFF", // White color (over yellow)
+    ternaryColor:"black", // black color (used with text box)
+    textBoxColor:"#585858" // Text color
+} */
