@@ -1,22 +1,34 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { db, UserContext } from "../App";
-import Payment from "./Payment";
 
 function TicketDetail() {
-  const { ticket } = useContext(UserContext);
+  const { ticket, user } = useContext(UserContext);
   const [ticketVal] = ticket;
-  const [Bus, setBus] = useState(ticketVal.Bus);
+  const [person = false] = user;
+  const { state } = useLocation();
+  const [Bus, setBus] = useState(null);
+  const [selectedData, setSelectedData] = useState(null);
+  const [paymentSuccess, setPaymentSuccess] = useState("");
   const Navigate = useNavigate();
-  console.log("ticketval",ticketVal, Bus);
-  /*============================= Data passed ====================================================== */
-  var { selectedData = false, person = false } = ticketVal;
 
-  var tempBusPending = [];
-  var tempBusBooked = [];
+  console.log(person, typeof Bus, Bus);
+  /*============================= Data passed ====================================================== */
 
   useEffect(() => {
-    if (selectedData != false) {
+    if (state !== null) {
+      setSelectedData(state.selectedData);
+      setBus(state.BusInfo);
+    } else {
+      Navigate("/home");
+    }
+  }, []);
+  
+  let tempBusPending = [];
+  let tempBusBooked = [];
+
+  useEffect(() => {
+    if (selectedData != null) {
       // If we are coming from seat selection
       if (Bus.Pending != null) {
         Bus.Pending.map((Pending) => {
@@ -35,64 +47,65 @@ function TicketDetail() {
       }
       tempBusPending = selectedData.concat(tempBusPending);
 
-      var tempBus = { ...Bus };
+      let tempBus = { ...Bus };
       tempBus.Pending = tempBusPending;
       tempBus.Booked = tempBusBooked;
       setBus(tempBus);
     }
     console.log("Bus=>", Bus);
   }, []);
-  const p = {}
-  console.log(p)
+
   /*============================= Modfying data because of different screen ======================== */
 
   /*============================= My Data created ================================================== */
-  var [promise, setPromise] = useState(true);
-
-  var GenderDetail = ["Male", "Female"];
-  var amount = Bus.Price;
-  var totalTicket = Bus.Pending.length;
-  var totalamount = amount * totalTicket;
-
-  // Modal Data
-  let [isAccountVisible, setAccountVisible] = useState(false);
-  let [accountNumber, setAccountNumber] = useState();
-  console.log(accountNumber);
+  const [promise, setPromise] = useState(false);
+  const GenderDetail = ["Male", "Female"];
+  // var amount = Bus.Price;
+  // var totalTicket = Bus.Pending.length;
+  // var totalamount = amount * totalTicket;
+  let [accountNumber, setAccountNumber] = useState("");
   const [error, setError] = useState("");
+  const [payError, setPayError] = useState("");
+
   // Functions
+
   const AccountModalOkHandler = () => {
-    if (accountNumber.length != 11) {
+    
+    if (accountNumber.length !== 11) {
       setError("Enter 11 digit number");
       return;
+    } else {
+      setError("");
     }
-
+    console.log("button is clicked");
     // Geting new Booked seats
-    setPromise(false);
+    // setPromise(false);
     var newBookedSeats = [];
     var updateNode = null;
     var tempraryBusSchedule = [];
-    console.log(Bus);
 
-    if (Bus.bookedIndex == -1) {
-      // Means there is no booking for the user so we have to gett all the booking and then insert the booking o user as well
+    if (Bus.bookedIndex === -1) {
+      //   // Means there is no booking for the user so we have to gett all the booking and then insert the booking o user as well
       newBookedSeats = [{ email: person.email, seats: [...Bus.Pending] }];
 
-      Node = db.ref().child("BusSchedule/" + Bus.FireBaseIndex); // Getting the city reference
+      let Node = db.ref().child("BusSchedule/" + Bus.FireBaseIndex); // Getting the city reference
       Node.once("value")
         .then((datasnap) => {
           tempraryBusSchedule = datasnap.val();
+          console.log(tempraryBusSchedule);
         })
         .then((readCountTxn) => {
           // When the propmise to get the city is made
-          if (tempraryBusSchedule.Booked != null)
+          if (tempraryBusSchedule.Booked != null) {
             tempraryBusSchedule.Booked = [
               ...tempraryBusSchedule.Booked,
               { email: person.email, seats: Bus.Pending },
             ];
-          else
+          } else {
             tempraryBusSchedule.Booked = [
               { email: person.email, seats: Bus.Pending },
             ];
+          }
 
           console.log(tempraryBusSchedule.Booked);
 
@@ -107,10 +120,11 @@ function TicketDetail() {
                   Bus.pendingIndex
               );
             Node.set([]).then((readCountTxn) => {
-              // setPromise(true);
+              setPromise(true);
               // setAccountVisible(false);
               // setPurchasedDoneVisible(true);
-              console.log("payment successfull");
+              console.log("first payment successfull");
+              setPaymentSuccess(" first Payment Successful");
               // Navigate('/welcome')
             });
           });
@@ -132,24 +146,24 @@ function TicketDetail() {
             "BusSchedule/" + Bus.FireBaseIndex + "/Pending/" + Bus.pendingIndex
           );
         updateNode.set([]).then((readCountTxn) => {
-          // setPromise(true);
+          setPromise(true);
           // setAccountVisible(false);
           // setPurchasedDoneVisible(true);
-          console.log("payment successful");
-          // Navigate('/welcome')
+          console.log("second payment successful");
+          setPaymentSuccess(" second Payment Successful");
         });
       });
     }
+    console.log("purches success");
+       
   };
 
-  // const AccountCancelHandler = () => {
-  //   setAccountVisible(false);
-  // };
-
-  let [isPurchasedDoneVisible, setPurchasedDoneVisible] = useState(false);
-  const PurchaseDoneHandler = () => {
-    setPurchasedDoneVisible(false);
-    // navigation.navigate("HomeScreen");
+  const modalClose = () => {
+    if (promise) {
+      Navigate("/welcome");
+    } else {
+      setPayError("pay First");
+    }
   };
   /*============================= My Data created ================================================== */
 
@@ -164,27 +178,16 @@ function TicketDetail() {
     ternaryColor: "black", // black color (used with text box)
     textBoxColor: "#585858", // Text color
   };
-  const globalShadowBox = {
-    shadowColor: "#B4B4B4",
-    shadowOffset: {
-      width: 0,
-      height: 6,
-    },
-    shadowOpacity: 0.39,
-    shadowRadius: 8.3,
-
-    elevation: 13,
-  };
 
   return (
     <div
       style={{
-        backgroundColor: GlobalBackgroundColors.primaryColor,
+        // backgroundColor: GlobalBackgroundColors.primaryColor,
         flex: 1,
         marginTop: "100px",
       }}
     >
-      {ticketVal.l === undefined ? (
+      {Bus === null || selectedData === null ? (
         <p>
           No data <Link to="/home">Back to Search</Link>
         </p>
@@ -211,12 +214,6 @@ function TicketDetail() {
                     <h5 class="modal-title" id="staticBackdropLabel">
                       Make Payment
                     </h5>
-                    <button
-                      type="button"
-                      class="btn-close"
-                      data-bs-dismiss="modal"
-                      aria-label="Close"
-                    ></button>
                   </div>
                   <div class="modal-body">
                     <div style={{ width: "100%", marginTop: "100px" }}>
@@ -228,6 +225,7 @@ function TicketDetail() {
                           padding: "10px",
                         }}
                       >
+                        <p>{payError}</p>
                         <div
                           style={{
                             width: "80%",
@@ -249,6 +247,8 @@ function TicketDetail() {
                             <p style={{ color: "red", fontSize: "20px" }}>
                               {error}
                             </p>
+
+                            <p>{paymentSuccess}</p>
                           </div>
                           <input
                             style={{ width: "100%" }}
@@ -266,28 +266,32 @@ function TicketDetail() {
                     </div>
                   </div>
                   <div class="modal-footer">
-                    <button
-                      type="button"
-                      class="btn btn-secondary"
-                      data-bs-dismiss="modal"
-                    >
-                      Close
-                    </button>
+                    {promise ? (
+                      <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                        onClick={() => modalClose()}
+                      >
+                        Proceed
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div style={{ display: isPurchasedDoneVisible ? "flex" : "none" }}>
-            {
-              //   <PurchasedDoneModel
-              //       isVisible={isPurchasedDoneVisible}
-              //       PurchaseDoneHandler={PurchaseDoneHandler}
-              //     />
-            }
-          </div>
 
           {/* Tickets */}
+          <h2 className="text-center">Confirm Purches</h2>
           <div
             style={{
               width: "90%",
@@ -309,7 +313,7 @@ function TicketDetail() {
               {/* Header */}
               <div
                 style={{
-                  backgroundColor: GlobalBackgroundColors.secondaryColor,
+                  backgroundColor: "#566573",
                   padding: "10px",
                 }}
               >
@@ -332,7 +336,7 @@ function TicketDetail() {
                 </div>
                 <div
                   style={{
-                    flexDirection: "row",
+                    display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
                     marginTop: "10px",
@@ -363,7 +367,7 @@ function TicketDetail() {
                 </div>
                 <div
                   style={{
-                    flexDirection: "row",
+                    display: "flex",
                     justifyContent: "space-around",
                     marginTop: "5px",
                   }}
@@ -430,7 +434,7 @@ function TicketDetail() {
               >
                 <div
                   style={{
-                    flexDirection: "row",
+                    display: "flex",
                     justifyContent: "space-between",
                   }}
                 >
@@ -439,7 +443,7 @@ function TicketDetail() {
                 </div>
                 <div
                   style={{
-                    flexDirection: "row",
+                    display: "flex",
                     justifyContent: "space-between",
                     marginTop: "10px",
                   }}
@@ -466,60 +470,41 @@ function TicketDetail() {
                 </div>
                 <div
                   style={{
-                    flexDirection: "row",
+                    display: "flex",
                     justifyContent: "space-between",
                     marginTop: "10px",
                   }}
-                >
-                  <p style={{ fontSize: "15px" }}>SeatNo</p>
-                  <p style={{ fontSize: "15px" }}>Gender</p>
-                </div>
-                <div>
+                ></div>
+                <div className="d-flex">
+                  <p>SeatNo: </p>
                   {Bus.Pending.map((item) => {
                     return (
-                      <div
-                        key={item.id}
-                        style={{
-                          flexDirection: "row",
-                          justifyContent: "space-between",
-                          marginTop: 5,
-                        }}
-                      >
-                        <p
-                          style={{
-                            fontSize: "10px",
-                            color: GlobalBackgroundTextColors.textBoxColor,
-                          }}
-                        >
-                          {item.seatID}
-                        </p>
-                        <p
-                          style={{
-                            fontSize: "10px",
-                            color: GlobalBackgroundTextColors.textBoxColor,
-                          }}
-                        >
-                          {GenderDetail[item.Gender]}
-                        </p>
+                      <div key={item.id}>
+                        <div>
+                          {item.seatID} {GenderDetail[item.Gender]},
+                        </div>
                       </div>
                     );
                   })}
                 </div>
+                <p>Bus No: {Bus.BusID}</p>
                 <div
                   style={{
-                    flexDirection: "row",
+                    display: "flex",
                     justifyContent: "space-between",
                     marginTop: "10px",
                   }}
                 >
                   <p style={{ fontSize: "20px" }}>Total Amount</p>
-                  <p style={{ fontSize: "20px" }}>{totalamount}</p>
+                  <p style={{ fontSize: "20px" }}>
+                    {Bus.Price * Bus.Pending.length}
+                  </p>
                 </div>
                 {/* Just a line*/}
               </div>
 
               {/* Buttons */}
-              <div style={{ flexDirection: "row", justifyContent: "center" }}>
+              <div style={{ display: "flex", justifyContent: "center" }}>
                 <button
                   type="button"
                   data-bs-toggle="modal"
@@ -542,20 +527,3 @@ function TicketDetail() {
   );
 }
 export default TicketDetail;
-
-// import React, { useContext } from 'react';
-// import { useLocation } from 'react-router-dom';
-// import { UserContext } from '../App';
-
-// const TicketDetail = () => {
-//     const { ticket } = useContext(UserContext);
-//     const [ticketVal] = ticket;
-//     console.log(ticketVal)
-//     return (
-//         <div style={{marginTop:"10px"}}>
-//             ticket Detail
-//         </div>
-//     );
-// };
-
-// export default TicketDetail;

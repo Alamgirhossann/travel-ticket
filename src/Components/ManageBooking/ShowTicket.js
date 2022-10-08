@@ -5,101 +5,247 @@ import { GetBooked, FilterBusSchedule } from "../../Functions";
 // Ticket Component
 function Ticket(props) {
   var { Bus, selectedData, person } = props;
+  var GenderDetail = ["Male", "Female"];
   console.log(selectedData);
+
+  const GlobalBackgroundColors = {
+    primaryColor: "#5641B6", // Blue Color for background
+    secondaryColor: "#FB8549", // Orange color for buttons and inner links
+    ternaryColor: "#FFFFFF", // White Color
+  };
+  const GlobalBackgroundTextColors = {
+    primaryColor: "#FFFFFF", // White color (used over blue one)
+    secondaryColor: "#FFFFFF", // White color (over yellow)
+    ternaryColor: "black", // black color (used with text box)
+    textBoxColor: "#585858", // Text color
+  };
   return (
     <div
-      style={{
-        // backgroundColor: GlobalBackgroundColors.ternaryColor,
-        padding: "6px",
-        borderRadius: "5px",
-        marginBottom: "10px",
-        marginTop: "10px",
-        width: "70%",
-        marginLeft: "auto",
-        marginRight: "auto",
-      }}
-    >
-      {/* Ticket Header */}
-      <div
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          paddingTop: "5px",
-          paddingBottom: "5px",
-        }}
-      >
-        {
-          // <TicketIcon />
-        }
-        <p>{person.email}</p>
-      </div>
-
-      {/* Route detail */}
-      <div
-        style={{ paddingLeft: "10px", paddingRight: "10px", marginTop: "15px" }}
-      >
-        {/* Title */}
-        <div style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          <p>Date</p>
-          <p>Time</p>
-        </div>
-        <div style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          <p style={{ fontSize: "10px" }}>
-            {Bus.Day}, {Bus.Date}
-          </p>
-          <p style={{ fontSize: "10px" }}>{Bus.DepartureTime}</p>
-        </div>
-      </div>
-      <div>
-        <p>Seat No: </p>
-        {selectedData.map((item) => {
-          return (
+            style={{
+              width: "90%",
+              flex: 1,
+              marginLeft: "auto",
+              marginRight: "auto",
+              marginBottom: "10px",
+              paddingBottom: "20px",
+            }}
+          >
+          
+            {/* Tickets detail container*/}
             <div
-              style={{ flexDirection: "row", justifyContent: "space-between" }}
+              style={{
+                flex: 1,
+                backgroundColor: GlobalBackgroundColors.ternaryColor,
+                paddingBottom: "20px",
+              }}
             >
-              <p>{item.seatID}</p>
+              {/* Header */}
+              <div
+              
+                style={{
+                  backgroundColor: '#566573',
+                  padding: "10px",
+                }}
+              >
+                <div
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  {
+                    //     <Image
+                    //     style={{ width: 40, height: 40 }}
+                    //     source={require("../../assets/Images/log.png")}
+                    //   />
+                    //   <Image
+                    //     style={{ width: 40, height: 40 }}
+                    //     source={require("../../assets/Images/BusLogo1.png")}
+                    //   />
+                  }
+                </div>
+                <div
+                  style={{
+                    display:"flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    marginTop: "10px",
+                  }}
+                >
+                  <p
+                    style={{
+                      color: GlobalBackgroundTextColors.secondaryColor,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {Bus.Arrival}
+                  </p>
+                  {
+                    //     <Image
+                    //     style={{ width: 50, height: 40 }}
+                    //     source={require("../../assets/Images/BusTicketLogo.png")}
+                    //   />
+                  }
+                  <p
+                    style={{
+                      color: GlobalBackgroundTextColors.secondaryColor,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {Bus.Destination}
+                  </p>
+                </div>
+                <div
+                  style={{
+                    display:"flex",
+                    justifyContent: "space-around",
+                    marginTop: "5px",
+                  }}
+                >
+                  <p
+                    style={{
+                      color: GlobalBackgroundTextColors.secondaryColor,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {Bus.DepartureTime}
+                  </p>
+                  <div
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: "10px",
+                        height: "10px",
+                        backgroundColor: GlobalBackgroundColors.ternaryColor,
+                        borderRadius: "10px",
+                      }}
+                    ></div>
+                    <div
+                      style={{
+                        width: "100px",
+                        height: "1px",
+                        backgroundColor: GlobalBackgroundColors.ternaryColor,
+                      }}
+                    ></div>
+                    <div
+                      style={{
+                        width: "10px",
+                        height: "10px",
+                        backgroundColor: GlobalBackgroundColors.ternaryColor,
+                        borderRadius: "10px",
+                      }}
+                    ></div>
+                  </div>
+                  <p
+                    style={{
+                      color: GlobalBackgroundTextColors.secondaryColor,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {Bus.ArrivalTime}
+                  </p>
+                </div>
+              </div>
+
+              {/* Body */}
+              <div
+                style={{
+                  backgroundColor: GlobalBackgroundColors.ternaryColor,
+                  flex: 1,
+                  paddingLeft: "20px",
+                  paddingRight: "20px",
+                  paddingTop: "20px",
+                }}
+              >
+                <div
+                  style={{
+                    display:"flex",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <p style={{ fontSize: "20px" }}>Name</p>
+                  <p style={{ fontSize: "20px" }}>Date</p>
+                </div>
+                <div
+                  style={{
+                    display:"flex",
+                    justifyContent: "space-between",
+                    marginTop: "10px",
+                  }}
+                >
+                  <p
+                    style={{
+                      fontSize: "10px",
+                      color: GlobalBackgroundTextColors.textBoxColor,
+                    }}
+                  >
+                    {person.email}
+                  </p>
+                  <p
+                    style={{
+                      fontSize: "10px",
+                      color: GlobalBackgroundTextColors.textBoxColor,
+                    }}
+                  >
+                    {Bus.Day}, {Bus.Date}
+                  </p>
+                </div>
+                <div style={{ marginTop: "20px" }}>
+                  <p style={{ fontSize: "20px" }}>Information</p>
+                </div>
+                <div
+                  style={{
+                    display:"flex",
+                    justifyContent: "space-between",
+                    marginTop: "10px",
+                  }}
+                >
+                  
+                </div>
+                <div className="d-flex">
+                <p>SeatNo: </p>
+                  {Bus.Booked.map((item) => {
+                    return (
+                      <div
+                        key={item.id}
+                      >
+                       <div>{item.seatID} {GenderDetail[item.Gender]},</div>
+                      </div>
+                     );
+                  })}
+                </div>
+                <p>Bus No: {Bus.BusID}</p>
+                <div
+                  style={{
+                    display:"flex",
+                    justifyContent: "space-between",
+                    marginTop: "10px",
+                  }}
+                >
+                  <p style={{ fontSize: "20px" }}>Total Amount</p>
+                  <p style={{ fontSize: "20px" }}>
+                    {Bus.Price * Bus.Booked.length}
+                  </p>
+                </div>
+                {/* Just a line*/}
+              </div>
+
+              {/* Buttons */}
+              <div style={{ display:"flex", justifyContent: "center" }}>
+                
+                <button
+                  
+                >
+                  Print Ticket
+                </button>
+              </div>
             </div>
-          );
-        })}
-      </div>
-      <p>Bus No: {Bus.BusID}</p>
-      <p>Bus Id: {Bus.id}</p>
-      <div></div>
-
-      {/* Total Price */}
-      <div
-        style={{ paddingLeft: "10px", paddingRight: "10px", marginTop: "15px" }}
-      >
-        {/* Title */}
-        <div style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          <p>Price</p>
-          <p style={{ fontSize: "10px" }}>{selectedData.length * Bus.Price}</p>
-        </div>
-      </div>
-
-      {/* Burtton */}
-      <button
-        style={{ backgroundColor: "black" }}
-        // onPress={() =>
-        //   navigation.navigate("RefundTicketScreen", {
-        //     Bus,
-        //     person,
-        //     selectedData,
-        //   })
-        // }
-      >
-        <p
-          style={{
-            color: "white",
-            textAlign: "center",
-            marginTop: "15px",
-            marginBottom: "10px",
-          }}
-        >
-          Print Ticket
-        </p>
-      </button>
-    </div>
+          </div>
   );
 }
 
@@ -152,6 +298,7 @@ function BookingPending() {
 
   return (
     <div style={{ flex: 1, marginTop:"100px" }}>
+    <h2 className="text-center">Booked Tickets</h2>
       <div>
         {purchasedTicket1.length === 0 ? (
           <p>No Booked Ticket Found</p>

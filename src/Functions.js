@@ -98,6 +98,7 @@ export function GetDate(BusSchedule) {
  * if phone number is given then also filter with respect to phone number
  */
  export function FilterBusSchedule(scheduleBuses, email) {
+  console.log(scheduleBuses, email)
   if (scheduleBuses != null) {
     var Buses = [];
     // Maping bus schedule

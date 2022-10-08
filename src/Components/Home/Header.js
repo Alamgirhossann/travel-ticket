@@ -26,23 +26,23 @@ const Header = () => {
   const [busList, setBusList] = useState([]);
   const [userVal, setUserVal] = user;
   const [bookingVal, setBookingVal] = booking;
-  const [error, setError] = useState('')
+  const [error, setError] = useState("");
   let Navigate = useNavigate();
 
-  console.log(state.dateVal, state.from, state.to, bookingVal);
+  console.log(state.dateVal, state.from.name, state.to.name, bookingVal, state, typeof(date));
 
   useEffect(() => {
     const citiesData = db.ref("CityName");
     citiesData.on("value", (snapshot) => {
-      const data = snapshot.val();
-      setcity(data);
+      const cityData = snapshot.val();
+      setcity(cityData);
     });
   }, []);
   useEffect(() => {
     const dateData = db.ref("BusSchedule");
     dateData.on("value", (snapshot) => {
-      const data = snapshot.val();
-      setDate(data);
+      const dates = snapshot.val();
+      setDate(dates);
     });
   }, []);
 
@@ -89,72 +89,83 @@ const Header = () => {
 
   const search = (e) => {
     e.preventDefault();
-    const citiesData = db.ref("BusSchedule");
-    citiesData.once("value", (snapshot) => {
-      const data = snapshot.val();
-      const buses = [];
-      console.log(buses);
-      data.filter((ele) => {
-        if (
-          ele.Arrival === state.from &&
-          ele.Destination === state.to &&
-          ele.Date === state.dateVal
-        ) {
-          buses.push(ele);
-          setBookingVal(buses);
-          Navigate("/searchResult");
-          console.log(ele);
-        }else{
-          setError('Please Select All Fields')
-        }
+    if (state.from.name && state.to.name && state.dateVal) {
+      const citiesData = db.ref("BusSchedule");
+      citiesData.once("value", (snapshot) => {
+        const data = snapshot.val();
+        const buses = [];
+        console.log(buses, data);
+      
+        data.filter((ele) => {
+          if (
+            ele.Arrival === state.from.name &&
+            ele.Destination === state.to.name &&
+            ele.Date === state.dateVal
+          ) {
+            buses.push(ele);
+            setBookingVal(buses);
+            Navigate("/searchResult");
+            console.log(ele);
+          } else {
+            Navigate("/searchResult");
+          }
+        });
+        // setDateValue(data);
+        console.log(data);
       });
-      // setDateValue(data);
-      console.log(data);
-    });
+    } else {
+      setError("Please Fill All Fields");
+    }
+  };
+
+  const style = {
+    height: "100px",
   };
 
   return (
     <div className="header-section">
       <div className="container">
-      <p className="text-danger">{error}</p>
+        <p className="text-danger">{error}</p>
         <div className="row">
           <div className="col-lg-5">
             <form className="row g-3 needs-validation">
               <div className="col-md-12" style={{ zIndex: 4 }}>
-                <input
+                <ReactSearchAutocomplete
                   type="text"
-                  className="form-control"
-                  id="validationCustom01"
+                  // className="form-control"
+                  // id="validationCustom01"
+                  // style={style}
                   placeholder="From"
-                  name="from"
+                  // name="from"
                   required
-                  value={state.from}
-                  onChange={handleChange}
-                  // items={city}
-                  // // onSearch={handleOnSearch}
-                  // // onHover={handleOnHover}
-                  // onSelect={handleOnSelect}
-                  // // onFocus={handleOnFocus}
-                  // autoFocus
-                  // formatResult={formatResult}
+                  // value={state.from}
+                  // onChange={handleChange}
+                  items={city}
+                  // onSearch={handleOnSearch}
+                  // onHover={handleOnHover}
+                  onSelect={handleOnSelect}
+                  // onFocus={handleOnFocus}
+                  autoFocus
+                  formatResult={formatResult}
                 />
               </div>
               <div className="col-md-12" style={{ zIndex: 2 }}>
-                <input
+                <ReactSearchAutocomplete
                   type="text"
-                  className="form-control"
-                  id="validationCustom01"
+                  // style={style}
+                  // className="form-control"
+                  // id="validationCustom01"
                   placeholder="To"
-                  name="to"
+                  // name="to"
                   required
-                  value={state.to}
-                  onChange={handleChange}
-                  // items={city}
-                  // // onSearch={handleOnSearch}
-                  // // onHover={handleOnHover}
-                  // onSelect={handleOnSelect2}
-                  // // onFocus={handleOnFocus}
-                  // formatResult={formatResult}
+                  // value={state.to}
+                  // onChange={handleChange}
+                  items={city}
+                  // onSearch={handleOnSearch}
+                  // onHover={handleOnHover}
+                  onSelect={handleOnSelect2}
+                  // onFocus={handleOnFocus}
+                  formatResult={formatResult}
                 />
               </div>
               <div className="col-md-12" style={{ zIndex: 1 }}>
@@ -163,15 +174,22 @@ const Header = () => {
                   value={currentDate}
                   onChange={handleChange}
                   name="dateVal"
+                  style={{
+                    width: "100%",
+                    height: "45px",
+                    borderRadius: "40px",
+                    padding: "0px 15px",
+                    border: "none",
+                    outline: "none",
+                    paddingRight:"20px",
+                  }}
                 >
-                  <option value="DEFAULT" disabled>
+                  <option style={{width:"50px",}} value="DEFAULT" disabled>
                     Select Date
                   </option>
                   {Array.from(new Set(date.map((j) => j.Date))).map(
                     (date, i) => (
-                      <>
-                        <option value={`${date}`}>{date}</option>
-                      </>
+                     <option value={`${date}`}>{date}</option>
                     )
                   )}
                 </select>

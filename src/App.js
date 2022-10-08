@@ -26,6 +26,8 @@ import BookingSeats from './Components/BookingDetail';
 import TicketDetail from './Components/TicketDetail';
 import Ticket from './Components//ManageBooking/ShowTicket';
 import PendingTicket from './Components/ManageBooking/PendingTicket';
+import ResetPassword from "./Components/SignupSignin/ResetPassword";
+import { FilterBusSchedule, GetPending } from "./Functions";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAzmJ1KzIDeeAWv-HhmJb8pcDfpPUxtzZk",
@@ -44,18 +46,20 @@ export const UserContext = createContext();
 
 const App = () => {
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({});
   const [booking, setBooking] = useState(null);
   const [bookingDetail, setBookingDetail] = useState({});
   const [date, setDate] = useState([]);
   const [seatNum, setSeatNum] = useState([]);
   const [bus, setBus]=useState([])
-  const [ticket, setTicket] = useState([])
-  console.log(user, booking, seatNum, ticket);
-
+  const [ticket, setTicket] = useState({})
+  const [paddingBooking, setPendingBooking] = useState([])
+  console.log(user.email, booking, seatNum, ticket, "pending", paddingBooking);
+  
   useEffect(() => {
     const authSubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
+        // const currentUser = getUser(user)
         setUser(user);
         setLoading(false);
       } else {
@@ -65,6 +69,52 @@ const App = () => {
     });
     return authSubscribe;
   }, []);
+
+  // useEffect(()=>{
+  //   // setInterval(() => {
+  //    var scheduleBuses = [];
+  //   const BusNode = db.ref().child("BusSchedule");
+  //   BusNode.once("value")
+  //     .then((datasnap) => {
+  //       scheduleBuses = datasnap.val();
+  //     })
+  //     .then((readCountTxn) => {
+  //       var duppendingBookingBus = [];
+  //       console.log(scheduleBuses,duppendingBookingBus);
+  //       // Getting pending related data
+  //       duppendingBookingBus = FilterBusSchedule(scheduleBuses, 'testman3@mail.com');
+  //       duppendingBookingBus = GetPending(duppendingBookingBus);
+  //       duppendingBookingBus.map((item)=>{
+  //         setPendingBooking(item);
+  //         console.log(item);
+  //       })
+        
+  //     });
+  //   // }, 40000);
+  // },[])
+
+  // function deleteBooking(Bus) {
+  //   console.log("Deleting", Bus);
+
+  //   var NewPendingNode = db
+  //     .ref()
+  //     .child(
+  //       "BusSchedule/" + Bus.FireBaseIndex + "/Pending/" + Bus.pendingIndex
+  //     );
+  //   NewPendingNode.set([]).then((readCountTxn) => {
+  //     console.log("success");
+  //   });
+  // }
+
+  // setInterval(() => {
+  //     deleteBooking(paddingBooking)
+  //   }, 60000);
+   
+    
+  
+  
+
+  
 
   useEffect(() => {
     AOS.init({
@@ -109,6 +159,7 @@ const App = () => {
               <Route path="/" element={<Signin />} />
               <Route path="/signin" element={<Signin />} />
               <Route path="/signup" element={<Signup />} />
+              <Route path="/resetPassword" element={<ResetPassword />}></Route>
             </>
           ) : (
             <>
@@ -123,9 +174,10 @@ const App = () => {
               <Route path="/welcome" element={<Welcome />}></Route>
               <Route path="/bookSeat" element={<BookingSeats />}></Route>
               <Route path="/bookingDetail" element={<BookingDetail />}></Route>
-              <Route path="/TicketDetail" element={<TicketDetail />}></Route>
+              <Route path="/ticketDetail" element={<TicketDetail />}></Route>
               <Route path="/bookedTicket" element={<Ticket />}></Route>
               <Route path="/pendingTicket" element={<PendingTicket />}></Route>
+              
             </>
           )}
 

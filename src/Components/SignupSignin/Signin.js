@@ -29,6 +29,9 @@ const Signin = () => {
     console.log(errorCode, errorMessage);
   });
   };
+
+
+
   return (
     <div className="signin-section">
       <div className="container">
@@ -56,7 +59,7 @@ const Signin = () => {
               />
             </div>
             <div className="forget">
-              <a href="#">Forget Password?</a>
+            <Link to="/resetPassword">Reset Password</Link>
             </div>
             {loading ? (
               <div
